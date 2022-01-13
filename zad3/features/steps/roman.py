@@ -1,21 +1,18 @@
+from cmath import cos
 from behave import *
-from src.roman import roman
-
+from assertpy import *
 use_step_matcher('parse')
 
 @given('converter')
 def step_impl(context):
-    context.r = roman
+    context.number = int(context.text.split(',')[0].strip())
+    context.exp = context.text.split(',')[1].strip()
 
-@when(u'the given number is (string)')
-def step_impl(context, number):
-    context.result = context.r(number)
+@when('done conversion')
+def step_impl(context):
+    context.res = context.r(context.number)
 
-@when(u'the given number is {number}')
-def step_impl(context, number):
-    context.result = number
-
-@then('the result is {result}')
-def step_impl(context, result):
-    assert context.result == result
+@then('the result')
+def step_impl(context):
+    assert context.res == context.exp
 

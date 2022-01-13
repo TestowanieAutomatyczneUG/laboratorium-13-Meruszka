@@ -11,4 +11,3 @@ def roman(number):
             number %= denom
         return result
     return number
-
